@@ -10,16 +10,17 @@ from .models import Post, Category, Tag
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-	pass
-
+	list_display = [
+		'title', 'category',
+		'created_time',
+	]
 
 
 class CategoryAdmin(admin.ModelAdmin):
-	pass
-
+	list_display = ('name', 'status', 'created_time')
 
 class TagAdmin(admin.ModelAdmin):
-	pass
+	list_display = ('name', 'status', 'created_time')
 #admin.site.register(Post, PostAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Category, CategoryAdmin)
