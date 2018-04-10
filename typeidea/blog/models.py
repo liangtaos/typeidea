@@ -20,6 +20,10 @@ class Post(models.Model):
 	created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 	lasted_update_time = models.DateTimeField(auto_now=True, verbose_name='更新时间')
 
+
+	def __unicode__(self):
+		return self.title
+	
 	class Meta:
 		verbose_name = verbose_name_plural = '文章'
 
@@ -38,7 +42,10 @@ class Category(models.Model):
 	owner = models.ForeignKey(User, verbose_name='作者')
 	created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 #    parent = models.ForeignKey('Category', verbose_name='分类')
-    
+	
+	def __unicode__(self):
+		return self.name
+	   
 	class Meta:
 		verbose_name = verbose_name_plural = '分类'
 
@@ -53,7 +60,10 @@ class Tag(models.Model):
 	status = models.PositiveIntegerField(default=1, choices=status_ITEMS, verbose_name='状态')
 	owner = models.ForeignKey(User, verbose_name='作者')
 	created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
-
+	
+	def __unicode__(self):
+		return self.name
+	
 	class Meta:
 		verbose_name = verbose_name_plural = '标签'
 
