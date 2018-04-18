@@ -1,7 +1,10 @@
 <ul>
 {% for post in posts %}
-	title:{{ post.title }}</br>
+	title:<a href="{% url 'detail' post.id  %}">{{ post.title }}</a></br>
 	desc: {{ post.desc }}
     <hr/>
 {% endfor %}
+{% if posts.has_previous %}<a href="?page={{ posts.number|add:"-1" }}">上一页</a>{% endif %}
+Page: {{ posts.number }} of {{ post.paginator.num_page }}.
+{% if posts.has_next %}<a href="?page={{ posts.number|add:"1" }}">下一页</a>{% endif %}
 </ul>
