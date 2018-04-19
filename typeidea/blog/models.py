@@ -42,6 +42,7 @@ class Category(models.Model):
 	name = models.CharField(max_length=50,verbose_name='名称')
 	status = models.PositiveIntegerField(default=1, choices=status_ITEMS, verbose_name='状态')
 	owner = models.ForeignKey(User, verbose_name='作者')
+	is_nav = models.BooleanField(default=False, verbose_name="是否为导航")
 	created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 #    parent = models.ForeignKey('Category', verbose_name='分类')
 	

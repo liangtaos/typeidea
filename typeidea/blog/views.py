@@ -7,8 +7,9 @@ from django.core.paginator import Paginator
 
 from django.http import HttpResponse, Http404
 
-from .models import Post, Tag
+from .models import Post, Tag, Category
 
+from config.models import SideBar, Link
 
 
 def post_list(request, category_id=None, tag_id=None):
@@ -37,9 +38,26 @@ def post_list(request, category_id=None, tag_id=None):
 		posts = paginator.page(page)
 	except EmptyPage:
 		posts = paginator.get(paginator.num_pages)
+#	print dir(posts)
+	
+
+	#categories = Category.objects.filter(status=1)	
+	#nav_cates = [ cate for cate in categories if cate.is_nav ]
+	#cates = [ cate for cate in categories if not cate.is_nav ]
+	#sidebar = SideBar.objects.filter(status=1)
+	#print sidebar
+	#recently_posts = Post.objects.filter(status=1)[:10]
 	context = {
-		'posts':posts
+		'posts':posts,
+	#	'nav_cates': nav_cates,
+	#	'cates': cates,
+#		'sidebar': sidebar,
+#		'recently_posts': recently_posts,
 	}
+	common_context = get_common_context()
+	context.update(common_context)
+	#for i in posts:
+#		print dir(i)
 	return render(request, 'blog/list.html', context=context)
 #	return HttpResponse('test')
 
@@ -55,4 +73,27 @@ def post_detail(request, pk=None):
 	context ={
 		'post': post
 	}
+	common_context = get_common_context()
+	context.update(common_context)
 	return render(request, 'blog/detail.html', context=context)
+
+
+def get_common_context():
+	categories = Category.objects.filter(status=1)
+	nav_cates = [ cate for cate in categories if cate.is_nav ]
+	cates = [ cate for cate in categories if not cate.is_nav ]
+	sidebar = SideBar.objects.filter(status=1)
+	#print sidebar
+	#nu = Post.objects.count()
+	#print type(Post.objects.filter(status=1)[nu-10:nu])
+	##recently_posts = (Post.objects.filter(status=1)[nu-10:nu])[::-1]
+	recently_posts = Post.objects.filter(status=1).order_by('-id')[:4]
+	context = {
+		'nav_cates': nav_cates,
+		'cates': cates,
+		'sidebar': sidebar,
+		'recently_posts': recently_posts,
+	}
+	return context
+
+

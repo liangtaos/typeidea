@@ -13,4 +13,4 @@ class LinkAdmin(admin.ModelAdmin):
 
 @admin.register(SideBar, site=custom_site)
 class SideBarAdmin(admin.ModelAdmin):
-    list_display = ('title', 'display_type', 'content', 'created_time')
+    list_display = ('title', 'display_type', 'status', 'content', 'created_time')
