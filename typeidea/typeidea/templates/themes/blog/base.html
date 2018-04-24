@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+     <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <title>TypeIdea</title>
+	<style>
+	.post-element-nav{
+		padding-top:0;
+		padding-bottom:0;
+		color: #428bca;
+		}
+	.title{
+		color:#333;
+
+	}
+	.main {
+		margin-top: 50px;
+	}
+	.post-element-title{
+		border-bottom: 1px solid #ccc;
+	}
+	.post-element-title a {
+		color : #333;
+
+	}
+	</style>
+
+
+  </head>
+<body>
+    <div class="container">
+     <!-- 网站名字 -->
+        <h2>TypeIdea<small class="text-muted"> - by Django</small></h2>
+    </div>
+
+
+
+<div class="container">
+
+
+<ul class="nav">
+    {% for cate in nav_cates %}
+    <li class="nav-item"><a class="nav-link" href="{% url "category" cate.id %}"><h4>{{ cate.name }}</h4></a></li>
+    {% endfor %}
+</ul>
+</div>
+<hr />
+<div class="container">
+<div class="row">
+<div class="col-9">
+{% block content %}
+{% endblock %}
+</div>
+<div class="col-3">
+    {% for side in side_bars %}
+        <h4>{{ side.title }}</h4>
+        <div >
+            {% if side.display_type == 1 %}
+                {% autoescape off %}
+                {{ side.content }}
+                {% endautoescape %}
+            {% elif side.display_type == 2 %}
+            <ul class="nav flex-column">
+            {% for post in recently_posts %}
+                <li style="list-style:none"><a  href="{% url 'detail' post.id %}">{{ post.title }}</a></li>
+            {% endfor %}
+            </ul>
+			<ul class="nav flex-column">
+            {% elif side.display_type == 4 %}
+                {% for comment in recently_comments %}
+                    <li style="list-style:none">{{ comment.content }}</li>
+                {% endfor %}
+            {% endif %}
+			</ul>
+        </div>
+	<hr />
+    {% endfor %}
+</div>
+</div>
+</div>
+<hr />
+<footer class="footer">
+<div class="container">
+<nav class="nav">
+{% for cate in cates %}
+<li><a href="{% url 'category' cate.id %}">{{ cate.name }}</a></li>
+{% endfor %}
+</nav>
+</div>
+<div class="container">
+<span class="text-muted">Power by Django@liangtao</span>
+</div>
+</footer>
+
+
+

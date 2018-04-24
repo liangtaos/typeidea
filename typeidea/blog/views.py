@@ -38,9 +38,9 @@ class CommonMixin(object):
 
 class BasePostsView(CommonMixin, ListView):
 	model = Post
-	template_name = 'blog/list.html'
+	template_name = 'themes/blog/list.html'
 	context_object_name = 'posts'
-	paginate_by = 4	
+	paginate_by = 10	
 
 class IndexView(BasePostsView):
 	pass
@@ -74,7 +74,7 @@ class TagView(BasePostsView):
 
 class PostView(CommonMixin,DetailView):
 	model = Post
-	template_name = 'blog/detail.html'
+	template_name = 'themes/blog/detail.html'
 	context_object_name = 'post'
 
 
