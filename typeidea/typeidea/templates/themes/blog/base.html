@@ -9,6 +9,41 @@
      <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <title>TypeIdea</title>
 	<style>
+	body{
+		background-color:#fff;
+	}
+	.fixed-top {
+		position:fixed;
+		right:0 ;
+		left:0 ;
+		border-width: 0 0 1px;
+	}
+	header{
+		height: 50px;
+		background-color: #3d4450;
+		border-color: #080808;
+		line-height: 50px;
+
+	}
+	header nav a {
+		color: #fff;
+		padding: 0 1.5rem;
+	}
+	header nav a:hover{
+		color: #fff;
+		text-decoration:none;
+		background-color:#000;
+		
+	}
+	header a.logo {
+		font-size: 2rem;
+	}
+	.main .left-side{
+		background-color: #fff;
+	}
+	.main .right-side{
+		background-color: #fff;
+	}
 	.post-element-nav{
 		padding-top:0;
 		padding-bottom:0;
@@ -19,7 +54,7 @@
 
 	}
 	.main {
-		margin-top: 50px;
+		margin-top: 100px;
 	}
 	.post-element-title{
 		border-bottom: 1px solid #ccc;
@@ -33,30 +68,39 @@
 
   </head>
 <body>
-    <div class="container">
-     <!-- 网站名字 -->
-        <h2>TypeIdea<small class="text-muted"> - by Django</small></h2>
-    </div>
+	<header class="fixed-top">
+	<div class="container">
+	<div class="row">
+	<div class="col-8">
+	<nav class="nav">
+		<a class="logo" href="/">LT</a>
+    	<a class="index" href="/">首页</a>
+    	{% for cate in nav_cates %}
+    		<a class="link" href="{% url "category" cate.id %}">{{ cate.name }}</a>
+    	{% endfor %}
+	</nav>
+	</div>
+	<div class="col-4">
+		    <form class="form-inline my-2 my-lg-0">
+      		<input class="form-control mr-sm-2" type="search" placeholder="Search">
+     		 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+	</div>
+	</div>
+	</div>
+	</header>
+
+
 
 
 
 <div class="container">
-
-
-<ul class="nav">
-    {% for cate in nav_cates %}
-    <li class="nav-item"><a class="nav-link" href="{% url "category" cate.id %}"><h4>{{ cate.name }}</h4></a></li>
-    {% endfor %}
-</ul>
-</div>
-<hr />
-<div class="container">
-<div class="row">
-<div class="col-9">
+<div class="row main">
+<div class="col-9 left-side">
 {% block content %}
 {% endblock %}
 </div>
-<div class="col-3">
+<div class="col-3 right-side">
     {% for side in side_bars %}
         <h4>{{ side.title }}</h4>
         <div >
